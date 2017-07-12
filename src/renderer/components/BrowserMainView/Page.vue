@@ -7,12 +7,34 @@
 <script>
   export default {
     methods: {
+      normalizeUrl(value) {
+        if (value === undefined || value === null) {
+          return '';
+        }
+
+        const rscheme = /^(?:[a-z\u00a1-\uffff0-9-+]+)(?::(\/\/)?)(?!\d)/i;
+        let output = value.trim();
+
+        let scheme = (rscheme.exec(output) || [])[0];
+        scheme = scheme === 'localhost://'
+          ? null
+          : scheme;
+        if (!scheme) {
+          output = `http://${value}`;
+        }
+
+        try {
+          return new window.URL(output).href;
+        } catch (e) {
+          return output;
+        }
+      },
       navigateTo(value) {
         const webview = this.$refs.webview;
         if (webview) {
           // if we want to navigate to somewhere,
           // we just assign the value to the src attribute of the webview element
-          webview.setAttribute('src', value);
+          webview.setAttribute('src', this.normalizeUrl(value));
         }
       },
     },
