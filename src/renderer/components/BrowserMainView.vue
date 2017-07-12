@@ -17,10 +17,13 @@
     },
     methods: {
       onLoadCommit(event) {
-        // get Navbar by its reference id
-        const navbar = this.$refs.navbar;
-        // update value of 'inputValue'
-        navbar.inputValue = event.url;
+        // we don't care about subframe document-level loads
+        if (event.isMainFrame) {
+          // get Navbar by its reference id
+          const navbar = this.$refs.navbar;
+          // update value of 'inputValue'
+          navbar.inputValue = event.url;
+        }
       },
       onDomReady(event) {
         // get the corresponding webview

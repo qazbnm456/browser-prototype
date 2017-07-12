@@ -21,7 +21,7 @@
       const webview = this.$refs.webview;
 
       // register dom-ready event
-      // https://electron.atom.io/docs/api/webview-tag/#event-dom-ready
+      // https://electron.atom.io/docs/api/webview-tag/#event-load-commit
       webview.addEventListener('load-commit', (event) => {
         if (this.$parent.onLoadCommit) {
           this.$parent.onLoadCommit(event);
