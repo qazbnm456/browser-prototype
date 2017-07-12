@@ -6,7 +6,7 @@
       <button @click="onClickForward" :disabled="!canGoForward">Forward</button>
       <button @click="onClickReload">Reload</button>
     </div>
-    <input @keyup.enter="onSelect">
+    <input @keyup.enter="onSelect" v-model="inputValue">
   </div>
 </template>
 
@@ -16,6 +16,7 @@
       return {
         canGoBack: false,
         canGoForward: false,
+        inputValue: '',
       };
     },
     methods: {

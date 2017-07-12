@@ -16,13 +16,24 @@
       Navbar,
     },
     methods: {
+      onLoadCommit(event) {
+        // get Navbar by its reference id
+        const navbar = this.$refs.navbar;
+        // update value of 'inputValue'
+        navbar.inputValue = event.url;
+      },
       onDomReady(event) {
         // get the corresponding webview
         const webview = event.target;
-        // update status of Navbar by the given webview
+        // get Navbar by its reference id
         const navbar = this.$refs.navbar;
+        // update values of 'canGoBack' and 'canGoForward'
         navbar.canGoBack = webview.canGoBack();
         navbar.canGoForward = webview.canGoForward();
+      },
+      onPagetitleUpdated() {
+        // https://electron.atom.io/docs/api/ipc-renderer/#ipcrenderersendchannel-arg1-arg2-
+        this.$electron.ipcRenderer.send('set-title', event.title);
       },
       handleSelect(value) {
         // call page's navigateTo method to do the rest
