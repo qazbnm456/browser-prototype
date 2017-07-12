@@ -80,5 +80,7 @@
 
   #browser-navbar > input {
     flex: 1;
+    font-size: 14px;
+    font-family: Source Code Pro,Courier,monospace;
   }
 </style>

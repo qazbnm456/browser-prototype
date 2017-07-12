@@ -21,6 +21,7 @@ function createWindow() {
     height: 563,
     useContentSize: true,
     width: 1000,
+    tabbingIdentifier: 'window',
   });
 
   mainWindow.loadURL(winURL);
@@ -30,21 +31,27 @@ function createWindow() {
   });
 }
 
+// https://electron.atom.io/docs/api/app/#event-ready
 app.on('ready', createWindow);
 
+// https://github.com/electron/electron/blob/master/docs/api/app.md#event-new-window-for-tab-macos
+app.on('new-window-for-tab', createWindow);
+
+// https://electron.atom.io/docs/api/app/#event-window-all-closed
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
 });
 
+// https://electron.atom.io/docs/api/app/#event-activate-macos
 app.on('activate', () => {
   if (mainWindow === null) {
     createWindow();
   }
 });
 
-// IPC events
+// https://electron.atom.io/docs/api/ipc-main/#ipcmainonchannel-listener
 ipcMain.on('set-title', (event, title) => {
   if (mainWindow !== null) {
     mainWindow.setTitle(title);
