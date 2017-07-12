@@ -6,10 +6,23 @@
 
 <script>
   export default {
+    methods: {
+      navigateTo(value) {
+        const webview = this.$refs.webview;
+        if (webview) {
+          // if we want to navigate to somewhere,
+          // we just assign the value to the src attribute of the webview element
+          webview.setAttribute('src', value);
+        }
+      },
+    },
     mounted() {
+      // get the webview by its reference id
       const webview = this.$refs.webview;
       if (webview) {
-        webview.setAttribute('src', 'https://github.com/qazbnm456/browser-prototype');
+        // if we want to navigate to somewhere,
+        // we just assign the value to the src attribute of the webview element
+        this.navigateTo('https://github.com/qazbnm456/browser-prototype');
       }
     },
   };
@@ -17,7 +30,7 @@
 
 <style scoped>
   webview {
-    height: 100vh;
+    height: calc(100vh - 27px);
     width: 100vw;
     outline: none;
     position: relative;

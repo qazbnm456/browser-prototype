@@ -1,15 +1,26 @@
 <template>
   <div>
-    <page></page>
+    <navbar></navbar>
+    <page ref="page"></page>
   </div>
 </template>
 
 <script>
+  import Navbar from './BrowserMainView/Navbar';
   import Page from './BrowserMainView/Page';
 
   export default {
     name: 'browser-main-view',
-    components: { Page },
+    components: {
+      Page,
+      Navbar,
+    },
+    methods: {
+      handleSelect(value) {
+        // call page's navigateTo method to do the rest
+        this.$refs.page.navigateTo(value);
+      },
+    },
   };
 </script>
 
