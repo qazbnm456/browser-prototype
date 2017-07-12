@@ -51,6 +51,14 @@
       });
 
       // register dom-ready event
+      // https://electron.atom.io/docs/api/webview-tag/#event-did-start-loading
+      webview.addEventListener('did-start-loading', () => {
+        if (this.$parent.onDidStartLoading) {
+          this.$parent.onDidStartLoading();
+        }
+      });
+
+      // register dom-ready event
       // https://electron.atom.io/docs/api/webview-tag/#event-dom-ready
       webview.addEventListener('dom-ready', (event) => {
         if (this.$parent.onDomReady) {

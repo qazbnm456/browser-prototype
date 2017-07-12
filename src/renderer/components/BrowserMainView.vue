@@ -25,6 +25,10 @@
           navbar.inputValue = event.url;
         }
       },
+      onDidStartLoading() {
+        // https://electron.atom.io/docs/api/ipc-renderer/#ipcrenderersendchannel-arg1-arg2-
+        this.$electron.ipcRenderer.send('set-title', 'Loading...');
+      },
       onDomReady(event) {
         // get the corresponding webview
         const webview = event.target;
