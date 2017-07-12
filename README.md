@@ -1,6 +1,6 @@
 # browser-prototype
 
-> An browser prototype made by Vue.js 2 and Electron
+> A prototype of the browser made by Vue.js 2 and Electron
 
 #### Build Setup
 
