@@ -19,6 +19,15 @@
     mounted() {
       // get the webview by its reference id
       const webview = this.$refs.webview;
+
+      // register dom-ready event
+      // https://electron.atom.io/docs/api/webview-tag/#event-dom-ready
+      webview.addEventListener('dom-ready', (event) => {
+        if (this.$parent.onDomReady) {
+          this.$parent.onDomReady(event);
+        }
+      });
+
       if (webview) {
         // if we want to navigate to somewhere,
         // we just assign the value to the src attribute of the webview element

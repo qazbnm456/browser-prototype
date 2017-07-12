@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navbar></navbar>
+    <navbar ref="navbar"></navbar>
     <page ref="page"></page>
   </div>
 </template>
@@ -16,9 +16,35 @@
       Navbar,
     },
     methods: {
+      onDomReady(event) {
+        // get the corresponding webview
+        const webview = event.target;
+        // update status of Navbar by the given webview
+        const navbar = this.$refs.navbar;
+        navbar.canGoBack = webview.canGoBack();
+        navbar.canGoForward = webview.canGoForward();
+      },
       handleSelect(value) {
         // call page's navigateTo method to do the rest
         this.$refs.page.navigateTo(value);
+      },
+      onClickBack() {
+        // get webview <- Page <- BrowserMainView
+        const webview = this.$refs.page.$refs.webview;
+        // https://electron.atom.io/docs/api/webview-tag/#webviewgoback
+        webview.goBack();
+      },
+      onClickForward() {
+        // get webview <- Page <- BrowserMainView
+        const webview = this.$refs.page.$refs.webview;
+        // https://electron.atom.io/docs/api/webview-tag/#webviewgoforward
+        webview.goForward();
+      },
+      onClickReload() {
+        // get webview <- Page <- BrowserMainView
+        const webview = this.$refs.page.$refs.webview;
+        // https://electron.atom.io/docs/api/webview-tag/#webviewreload
+        webview.reload();
       },
     },
   };
