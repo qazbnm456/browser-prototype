@@ -42,7 +42,7 @@
       // get the webview by its reference id
       const webview = this.$refs.webview;
 
-      // register dom-ready event
+      // register load-commit event
       // https://electron.atom.io/docs/api/webview-tag/#event-load-commit
       webview.addEventListener('load-commit', (event) => {
         if (this.$parent.onLoadCommit) {
@@ -50,7 +50,7 @@
         }
       });
 
-      // register dom-ready event
+      // register did-start-loading event
       // https://electron.atom.io/docs/api/webview-tag/#event-did-start-loading
       webview.addEventListener('did-start-loading', () => {
         if (this.$parent.onDidStartLoading) {
@@ -66,11 +66,19 @@
         }
       });
 
-      // register dom-ready event
+      // register page-title-updated event
       // https://electron.atom.io/docs/api/webview-tag/#event-page-title-updated
       webview.addEventListener('page-title-updated', (event) => {
         if (this.$parent.onPagetitleUpdated) {
           this.$parent.onPagetitleUpdated(event);
+        }
+      });
+
+      // register context-menu event
+      // https://electron.atom.io/docs/api/web-contents/#event-context-menu
+      webview.addEventListener('context-menu', (event) => {
+        if (this.$parent.onContextMenu) {
+          this.$parent.onContextMenu(event);
         }
       });
 
