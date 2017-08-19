@@ -46,6 +46,8 @@
         const { Menu, MenuItem } = this.$electron.remote;
         const menu = new Menu();
 
+        // get the corresponding webview
+        const webview = event.target;
         // get Navbar by its reference id
         const navbar = this.$refs.navbar;
 
@@ -131,6 +133,16 @@
           label: 'Select All',
           accelerator: 'CmdOrCtrl+A',
           role: 'selectall',
+        }));
+
+        menu.append(new MenuItem({ type: 'separator' }));
+
+        // add the 'Inspect Element' menu item
+        menu.append(new MenuItem({
+          label: 'Inspect Element',
+          click: () => {
+            webview.inspectElement(params.x, params.y);
+          },
         }));
 
         // popup the context menu
